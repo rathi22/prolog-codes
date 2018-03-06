@@ -14,3 +14,11 @@ encode([X|[X|L]],[[Y1|L2]|L3]):-
     
 encode([X|[Y|L]],[[1,X]|L1]):-
     encode([Y|L],L1).
+
+modify([],[]).
+modify([[1,X]|L1],[X|L2]):- modify(L1,L2), !.
+modify([[X,Y]|L1],[[X,Y]|L2]):- modify(L1,L2).
+
+encode_modified(L,X):-
+    encode(L,L1),
+    modify(L1,X).
